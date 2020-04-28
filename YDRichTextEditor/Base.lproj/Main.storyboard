@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="YDRichTextEditor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8M-vm-YJm" customClass="YDRichTextEditor" customModule="YDRichTextEditor" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="368"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="368" id="ySb-hW-1kh"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="itp-ew-04j">
+                                <rect key="frame" x="50" y="512" width="31" height="30"/>
+                                <state key="normal" title="加粗"/>
+                                <connections>
+                                    <action selector="didOnBoldTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="psy-Ae-qP3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8R-bA-94k">
+                                <rect key="frame" x="131" y="512" width="31" height="30"/>
+                                <state key="normal" title="斜体"/>
+                                <connections>
+                                    <action selector="didOnItalicTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="N4C-Jr-z88"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXC-Ta-lhC">
+                                <rect key="frame" x="212" y="512" width="62" height="30"/>
+                                <state key="normal" title="插入图片"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="itp-ew-04j" firstAttribute="top" secondItem="O8M-vm-YJm" secondAttribute="bottom" constant="100" id="FiV-NZ-3DN"/>
+                            <constraint firstItem="v8R-bA-94k" firstAttribute="centerY" secondItem="itp-ew-04j" secondAttribute="centerY" id="N2N-uK-Bsf"/>
+                            <constraint firstItem="itp-ew-04j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="NmD-Lv-ZE3"/>
+                            <constraint firstItem="O8M-vm-YJm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cdY-3z-Isx"/>
+                            <constraint firstItem="eXC-Ta-lhC" firstAttribute="centerY" secondItem="v8R-bA-94k" secondAttribute="centerY" id="dBT-8h-o3j"/>
+                            <constraint firstItem="v8R-bA-94k" firstAttribute="top" secondItem="itp-ew-04j" secondAttribute="top" id="ird-3E-NTD"/>
+                            <constraint firstItem="O8M-vm-YJm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kfT-bt-8k5"/>
+                            <constraint firstItem="eXC-Ta-lhC" firstAttribute="leading" secondItem="v8R-bA-94k" secondAttribute="trailing" constant="50" id="nzc-WS-uej"/>
+                            <constraint firstItem="v8R-bA-94k" firstAttribute="leading" secondItem="itp-ew-04j" secondAttribute="trailing" constant="50" id="rNP-ij-HYp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="O8M-vm-YJm" secondAttribute="trailing" id="vzc-lX-4gJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="editorView" destination="O8M-vm-YJm" id="3Hh-JT-SPQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+        </scene>
+    </scenes>
+</document>
