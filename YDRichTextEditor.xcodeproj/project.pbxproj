@@ -290,14 +290,14 @@
 		5AA68A082459082F0049BCBE /* VJCategory */ = {
 			isa = PBXGroup;
 			children = (
-				5AA68A092459082F0049BCBE /* WKWebView+VJJSTool.h */,
 				5AA68A0A2459082F0049BCBE /* UIControl+KWButtonExtension.h */,
-				5AA68A0B2459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m */,
-				5AA68A0C2459082F0049BCBE /* NSString+VJUUID.m */,
-				5AA68A0D2459082F0049BCBE /* WKWebView+VJJSTool.m */,
 				5AA68A0E2459082F0049BCBE /* UIControl+KWButtonExtension.m */,
 				5AA68A0F2459082F0049BCBE /* WKWebView+HackishAccessoryHiding.h */,
+				5AA68A0B2459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m */,
+				5AA68A092459082F0049BCBE /* WKWebView+VJJSTool.h */,
+				5AA68A0D2459082F0049BCBE /* WKWebView+VJJSTool.m */,
 				5AA68A102459082F0049BCBE /* NSString+VJUUID.h */,
+				5AA68A0C2459082F0049BCBE /* NSString+VJUUID.m */,
 			);
 			path = VJCategory;
 			sourceTree = "<group>";

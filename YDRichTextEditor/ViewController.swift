@@ -8,16 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: ZSSRichTextEditor {
 
     lazy var textEditor: ZSSRichTextEditor = {
         let textEditor: ZSSRichTextEditor = ZSSRichTextEditor.init()
+        
         return textEditor
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addChildVC(textEditor)
+        vj_hideColumn = true
+        vj_hideHTMLAbstract = true
+//        self.addChildVC(textEditor)
         // Do any additional setup after loading the view.
     }
     
@@ -26,7 +29,7 @@ class ViewController: UIViewController {
         self.didMove(toParent: viewController)
         self.view.addSubview(viewController.view)
         
-        viewController.view.frame = CGRect.init(x: 10, y: 88, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height - 88)
+        viewController.view.frame = CGRect.init(x: 0, y: 88, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 88)
     }
     
 }

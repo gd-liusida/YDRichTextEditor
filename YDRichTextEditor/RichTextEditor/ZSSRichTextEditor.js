@@ -797,13 +797,13 @@ zss_editor.hideAddImage = function() {
 }
 
 zss_editor.setArticleImage = function(img) {
-    var cover = document.getElementById("article_cover")
-    cover.attr("src", img)
+    var cover = document.getElementById("article_cover");
+    cover.attr("src", img);
 }
 
 zss_editor.getArticleImage = function() {
-    var cover = document.getElementById("article_cover")
-    return cover.src
+    var cover = document.getElementById("article_cover");
+    return cover.src;
 }
 
 

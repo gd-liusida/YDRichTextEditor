@@ -637,6 +637,7 @@
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
     
     NSLog(@"name  = %@",message.name);
+    NSLog(@"body  = %@",message.body);
     //在这里截取H5调用的本地方法
     if ([message.name isEqualToString:@"column"]){
         [self didSelectedColumn];
