@@ -72,6 +72,8 @@ typedef void (^callBack)(NSString *html);
 @property(nonatomic,assign)BOOL vj_hideHTMLTitle;
 @property(nonatomic,assign)BOOL vj_hideHTMLAbstract;
 @property(nonatomic,assign)BOOL vj_hideColumn;
+@property(nonatomic,assign)BOOL isHideFooter;
+@property(nonatomic,assign)BOOL isHideAddImage;
 
 - (void)vj_getHTMLTitle:(callBack)block;
 - (void)vj_getHTMLAbstract:(callBack)block;

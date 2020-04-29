@@ -109,6 +109,7 @@ div.zss_editor_footer{
     width:100%;
     height:200px;
     margin-top: 50px;
+    border: 1px dashed #cdcdcd;
 }
 
 </style>
@@ -125,6 +126,32 @@ div.zss_editor_footer{
         </div>
         <div id="vj_column_content" style="float: right;"></div>
     </div>
+        
+    <div id="vj_title">
+        <input id="vj_article_title" maxlength="30" type="text" placeholder="请输入标题" onkeyup="titleTextChange(this, 30);">
+        <div id="title_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/30</div>
+    </div>
+    <div id="vj_abstract-title">
+        <input id="vj_article_abstract" maxlength="35" type="text" placeholder="请输入文章摘要">
+    </div>
+
+    
+	<!-- ZSSRichTextEditor Editable Content -->
+	<div style="position: relative; left: 0; right: 0; bottom: 0; min-height: 200px;">
+        <div id="zss_editor_content" class="zs_editor_content" contenteditable="true" placeholder="请输入文章正文" onkeyup="contentTextChange(this, 3000)"></div>
+        <div id="content_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/3000</div>
+    </div>
+
+	<!-- Footer -->
+	<div id="zss_editor_footer" class="zss_editor_footer">
+        <img id="article_cover" style="position: absolute; display: flex; height: 100%; width: 100%; min-width: 100%; min-height: 200px; display: none;" src=""></img>
+        <div style="position: relative; padding: 10px; color: #cdcdcd; font-size: 10px;">
+            <u>上传封面图</u>
+        </div>
+        <div id="add_img" style="display: flex; position: absolute; align-items: center; justify-content: center; width: 100%; height: 100%;">
+            <img style="position: absolute; top: 50%; width: 60px; height: 60px;">
+        </div>
+    </div>
     
     <script>
         var div = document.getElementById('vj_column');
@@ -137,54 +164,31 @@ div.zss_editor_footer{
               });
 
         }
-    </script>
-        
-    <div id="vj_title">
-        <input id="vj_article_title" maxlength="30" type="text" placeholder="请输入标题" onkeyup="titleTextChange(this, 30);">
-        <div id="title_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/30</div>
-    </div>
-    <div id="vj_abstract-title">
-        <input id="vj_article_abstract" maxlength="35" type="text" placeholder="请输入文章摘要">
-    </div>
-
-    
-	<!-- ZSSRichTextEditor Editable Content -->
-	<div style="position: relative; left: 0; right: 0; bottom: 0; min-height: 200px; max-height: 500px; overflow-y: auto;">
-        <div id="zss_editor_content" class="zs_editor_content" contenteditable="true" placeholder="请输入文章正文" onkeyup="contentTextChange(this, 3000)"></div>
-        <div id="content_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/3000</div>
-    </div>
-
-	<!-- Footer -->
-	<div id="zss_editor_footer" class="zss_editor_footer">
-        <div style="display: flex; position: absolute; align-items: center; justify-content: center; width: 100%; height: 100%;">
-            <img id="article_cover" style="position: relative; display: flex; height: 100%; width: 100%; min-width: 100%; min-height: 200px;" onclick="updateImage(this)" src=""></img>
-        </div>
-        <div style="position: relative; padding: 10px; color: #cdcdcd; font-size: 10px;">
-            <u>上传封面图</u>
-        </div>
-    </div>
-    
-    <script>
         function titleTextChange(thisArea, maxLength) {
-            if (thisArea.value.length > length) {
-                thisArea.value = thisArea.value.substring(0, 30)
+            if (thisArea.value.length > maxLength) {
+                thisArea.value = thisArea.value.substring(0, maxLength)
                 thisArea.focus()
             }
             let title_number = document.getElementById('title_number')
-            title_number.textContent = thisArea.value.length + "/" + length
+            title_number.textContent = thisArea.value.length + "/" + maxLength
         }
         function contentTextChange(content, maxLength) {
             console.log(content.textContent)
             if (content.textContent.length > maxLength) {
-                content.textContent = content.textContent.substring(0, 3000)
+                content.textContent = content.textContent.substring(0, maxLength)
                 content.focus()
             }
             let content_number = document.getElementById('content_number')
             content_number.textContent = content.textContent.length + "/" + maxLength
         }
 
-        function updateImage(e) {
-            console.log(e)
+        var footer = document.getElementById('zss_editor_footer');
+        footer.addEventListener('click', coverImage);
+        function coverImage(e) {
+            let img = document.getElementById('article_cover')
+            window.webkit.messageHandlers.coverImage.postMessage({
+                "image": img.value
+            });
         }
     </script>
     

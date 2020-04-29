@@ -788,6 +788,24 @@ zss_editor.vj_setColumnContent = function(text) {
     editor.text(text);
 }
 
+zss_editor.hidefooter = function() {
+    document.getElementById("zss_editor_footer").style.display="none";
+}
+
+zss_editor.hideAddImage = function() {
+    document.getElementById("add_img").style.display="none";
+}
+
+zss_editor.setArticleImage = function(img) {
+    var cover = document.getElementById("article_cover")
+    cover.attr("src", img)
+}
+
+zss_editor.getArticleImage = function() {
+    var cover = document.getElementById("article_cover")
+    return cover.src
+}
+
 
 
 

@@ -640,11 +640,17 @@
     //在这里截取H5调用的本地方法
     if ([message.name isEqualToString:@"column"]){
         [self didSelectedColumn];
+    } else if ([message.name isEqualToString:@"coverImage"]) {
+        [self didSelectCoverImage];
     }
 }
 
 -(void)didSelectedColumn{
     //需要重写
+}
+
+-(void)didSelectCoverImage {
+    NSLog(@"%@", @"封面图片");
 }
 
 #pragma mark - methods
@@ -723,8 +729,9 @@
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
         WKUserContentController *userCon = [[WKUserContentController alloc]init];
         config.userContentController = userCon;
-        _editorView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, pDeviceWidth - 20, self.view.frame.size.height-KWEditorBar_Height) configuration:config];
+        _editorView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, pDeviceWidth, self.view.frame.size.height-KWEditorBar_Height) configuration:config];
         [userCon addScriptMessageHandler:self name:@"column"];
+        [userCon addScriptMessageHandler:self name:@"coverImage"];
         _editorView.navigationDelegate = self;
         _editorView.UIDelegate = self;
         _editorView.hidesInputAccessoryView = YES;
