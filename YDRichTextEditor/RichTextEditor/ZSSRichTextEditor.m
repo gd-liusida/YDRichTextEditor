@@ -730,7 +730,7 @@
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
         WKUserContentController *userCon = [[WKUserContentController alloc]init];
         config.userContentController = userCon;
-        _editorView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, pDeviceWidth, self.view.frame.size.height-KWEditorBar_Height) configuration:config];
+        _editorView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, pDeviceWidth, self.view.frame.size.height - KWEditorBar_Height - pNavigationHeight) configuration:config];
         [userCon addScriptMessageHandler:self name:@"column"];
         [userCon addScriptMessageHandler:self name:@"coverImage"];
         _editorView.navigationDelegate = self;
@@ -747,7 +747,8 @@
 - (KWEditorBar *)toolBarView{
     if (!_toolBarView) {
         _toolBarView = [KWEditorBar editorBar];
-        _toolBarView.frame = CGRectMake(0,self.view.frame.size.height - KWEditorBar_Height, self.view.frame.size.width, KWEditorBar_Height);
+        NSLog(@"%f", self.view.frame.size.height);
+        _toolBarView.frame = CGRectMake(0,self.view.frame.size.height - KWEditorBar_Height - pNavigationHeight, self.view.frame.size.width, KWEditorBar_Height);
         _toolBarView.backgroundColor = COLOR(237, 237, 237, 1);
     }
     return _toolBarView;
