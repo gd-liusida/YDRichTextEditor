@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ZSSRichTextEditor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<meta name="referrer" content="no-referrer">
+
+<!-- CSS Styles for ZSSRichTextEditor -->
+<style type="text/css">
+
+/* Default ZSSRichTextEditor Styling */
+* {
+	outline: 0px solid transparent;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-touch-callout: none;
+}
+ 
+html, body {
+	padding: 0;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+      
+body {
+	padding: 10px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	height: 100%;
+}
+
+img.zs_active {
+	border: 2px dashed #000;
+}
+
+img {
+    width: 98%;
+    margin-left:auto;
+    margin-right:auto;
+}
+      
+audio {
+	padding: 20px 0;
+}
+
+div.zs_editor_content {
+    position:relative;
+    width:100%;
+    min-height: 50%;
+    border: 0;
+    padding: 10px 0px;
+    line-height:28px;
+    z-index:3;
+    -webkit-tap-highlight-color:transparent;
+    color:#333333;
+    padding-bottom: 15px;
+}
+
+[placeholder]:empty:before {
+    content: attr(placeholder);
+    color:#999999;
+}
+
+[placeholder]:empty:focus:before {
+    content: "";
+}
+/* 标题设置 */
+#vj_title input{
+    border: 0;
+    width:-moz-calc(100% - 30px);
+    width:-webkit-calc(100% - 30px);
+    width: calc(100% - 30px);
+    font-size: 18px;
+    -webkit-tap-highlight-color:transparent;
+    padding:0px;
+    margin:15px auto;
+}
+#vj_title input:hover,#title input:focus,#title input:active{
+    background:#ffffff;
+    -webkit-tap-highlight-color:transparent;
+}
+
+#vj_title{
+    border-bottom: 1px solid #cdcdcd;
+    position: relative;
+}
+
+/* 摘要设置*/
+#vj_abstract-title input{
+    border: 0;
+    width:-moz-calc(100% - 30px);
+    width:-webkit-calc(100% - 30px);
+    width: calc(100% - 30px);
+    font-size: 20px;
+    -webkit-tap-highlight-color:transparent;
+    padding:0px;
+    margin:15px auto;
+}
+#vj_abstract-title input:hover,#title input:focus,#title input:active{
+    background:#ffffff;
+    -webkit-tap-highlight-color:transparent;
+}
+#vj_abstract-title{
+    border-bottom: 1px dashed #999999;
+    margin: 0px 0px 15px;
+}
+
+div.zss_editor_footer{
+    position: relative;
+    width:100%;
+    height:200px;
+    margin-top: 50px;
+}
+
+</style>
+
+</head>
+
+<body onLoad="zss_editor.init();">
+    
+    
+    <div id="vj_column" style="width: 100%;min-width:320px;height: 44px;line-height: 44px;border-bottom: 0.5px solid #999999;">
+        <div style="float: left;">请选择栏目</div>
+        <div style="position: relative;height: 44px; width:8px;float: right;margin:0px 17px;">
+            <img style="width: 100%;height:14px;position: absolute;top: 50%;transform: translateY(-50%);" src="cellRightArrow.png" />
+        </div>
+        <div id="vj_column_content" style="float: right;"></div>
+    </div>
+    
+    <script>
+        var div = document.getElementById('vj_column');
+        div.addEventListener('click', test);
+        
+        function test(e) {
+
+           window.webkit.messageHandlers.column.postMessage({
+                  "body": "buttonActionMessage"
+              });
+
+        }
+    </script>
+        
+    <div id="vj_title">
+        <input id="vj_article_title" maxlength="30" type="text" placeholder="请输入标题" onkeyup="titleTextChange(this, 30);">
+        <div id="title_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/30</div>
+    </div>
+    <div id="vj_abstract-title">
+        <input id="vj_article_abstract" maxlength="35" type="text" placeholder="请输入文章摘要">
+    </div>
+
+    
+	<!-- ZSSRichTextEditor Editable Content -->
+	<div style="position: relative; left: 0; right: 0; bottom: 0; min-height: 200px; max-height: 500px; overflow-y: auto;">
+        <div id="zss_editor_content" class="zs_editor_content" contenteditable="true" placeholder="请输入文章正文" onkeyup="contentTextChange(this, 3000)"></div>
+        <div id="content_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/3000</div>
+    </div>
+
+	<!-- Footer -->
+	<div id="zss_editor_footer" class="zss_editor_footer">
+        <div style="display: flex; position: absolute; align-items: center; justify-content: center; width: 100%; height: 100%;">
+            <img id="article_cover" style="position: relative; display: flex; height: 100%; width: 100%; min-width: 100%; min-height: 200px;" onclick="updateImage(this)" src=""></img>
+        </div>
+        <div style="position: relative; padding: 10px; color: #cdcdcd; font-size: 10px;">
+            <u>上传封面图</u>
+        </div>
+    </div>
+    
+    <script>
+        function titleTextChange(thisArea, maxLength) {
+            if (thisArea.value.length > length) {
+                thisArea.value = thisArea.value.substring(0, 30)
+                thisArea.focus()
+            }
+            let title_number = document.getElementById('title_number')
+            title_number.textContent = thisArea.value.length + "/" + length
+        }
+        function contentTextChange(content, maxLength) {
+            console.log(content.textContent)
+            if (content.textContent.length > maxLength) {
+                content.textContent = content.textContent.substring(0, 3000)
+                content.focus()
+            }
+            let content_number = document.getElementById('content_number')
+            content_number.textContent = content.textContent.length + "/" + maxLength
+        }
+
+        function updateImage(e) {
+            console.log(e)
+        }
+    </script>
+    
+</body>
+</html>

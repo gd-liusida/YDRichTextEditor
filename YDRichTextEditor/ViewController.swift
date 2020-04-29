@@ -10,19 +10,23 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var editorView: YDRichTextEditor!
+    lazy var textEditor: ZSSRichTextEditor = {
+        let textEditor: ZSSRichTextEditor = ZSSRichTextEditor.init()
+        return textEditor
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.editorView.setHTML("这是一个测试")
+        self.addChildVC(textEditor)
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func didOnBoldTapped(_ sender: Any) {
-        self.editorView.setBold()
-    }
     
-    @IBAction func didOnItalicTapped(_ sender: Any) {
-        self.editorView.setItalic()
+    func addChildVC(_ viewController: UIViewController) {
+        self.addChild(viewController)
+        self.didMove(toParent: viewController)
+        self.view.addSubview(viewController.view)
+        
+        viewController.view.frame = CGRect.init(x: 10, y: 88, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height - 88)
     }
     
 }
