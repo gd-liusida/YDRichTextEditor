@@ -265,6 +265,11 @@ zss_editor.setBlockquote = function() {
     zss_editor.enabledEditingItems();
 }
 
+zss_editor.sethr = function() {
+    document.execCommand('insertHr', false, null);
+    zss_editor.enabledEditingItems();
+}
+
 zss_editor.removeFormating = function() {
     document.execCommand('removeFormat', false, null);
     zss_editor.enabledEditingItems();
@@ -794,6 +799,24 @@ zss_editor.hidefooter = function() {
 
 zss_editor.hideAddImage = function() {
     document.getElementById("add_img").style.display="none";
+}
+
+zss_editor.hideTitleNumber = function() {
+    document.getElementById("title_number").style.display="none";
+}
+
+zss_editor.hideContentNumber = function() {
+    document.getElementById("content_number").style.display="none";
+}
+
+zss_editor.setTitleNumber = function(text) {
+    var editor = $('#title_number');
+    editor.text(text);
+}
+
+zss_editor.setContentNumber = function(text) {
+    var editor = $('#content_number');
+    editor.text(text);
 }
 
 zss_editor.setArticleImage = function(img) {

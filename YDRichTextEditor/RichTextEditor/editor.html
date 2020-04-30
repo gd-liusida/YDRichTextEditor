@@ -77,6 +77,17 @@ div.zs_editor_content {
 [placeholder]:empty:focus:before {
     content: "";
 }
+
+blockquote{
+    background-color: whitesmoke;
+    border-left: 4px solid #999999;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 10px 15px;
+    margin-left: 0px;
+    margin-right : 0px;
+}
+
 /* 标题设置 */
 #vj_title input{
     border: 0;
@@ -86,7 +97,7 @@ div.zs_editor_content {
     font-size: 18px;
     -webkit-tap-highlight-color:transparent;
     padding:0px;
-    margin:15px auto;
+    min-height: 50px;
 }
 #vj_title input:hover,#title input:focus,#title input:active{
     background:#ffffff;
@@ -155,8 +166,8 @@ div.zss_editor_footer{
     </script>
         
     <div id="vj_title">
-        <input id="vj_article_title" maxlength="30" type="text" placeholder="请输入标题" oninput="titleTextChange(this, 30);">
-        <div id="title_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/30</div>
+        <input id="vj_article_title" type="text" placeholder="请输入标题" oninput="titleTextChange(this);">
+        <div id="title_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/300</div>
     </div>
     <div id="vj_abstract-title">
         <input id="vj_article_abstract" maxlength="35" type="text" placeholder="请输入文章摘要">
@@ -165,7 +176,7 @@ div.zss_editor_footer{
     
 	<!-- ZSSRichTextEditor Editable Content -->
 	<div style="position: relative; left: 0; right: 0; bottom: 0; min-height: 200px;">
-        <div id="zss_editor_content" class="zs_editor_content" contenteditable="true" placeholder="请输入文章正文" oninput="contentTextChange(this, 3000);"></div>
+        <div id="zss_editor_content" class="zs_editor_content" contenteditable="true" placeholder="请输入文章正文" oninput="contentTextChange(this);"></div>
         <div id="content_number" style="position: absolute; bottom: 0; right: 0; color: #cdcdcd;">0/3000</div>
     </div>
 
@@ -181,28 +192,38 @@ div.zss_editor_footer{
     </div>
 
     <script>
-        function titleTextChange(thisArea, maxLength) {
-            if (thisArea.value.length > maxLength) {
-                thisArea.value = thisArea.value.substring(0, maxLength)
-                thisArea.focus()
-            }
-            let title_number = document.getElementById('title_number')
-            title_number.textContent = thisArea.value.length + "/" + maxLength
+        function titleTextChange(thisArea) {
+            var title_number = document.getElementById('title_number');
+            let arr = title_number.textContent.split("/");
+            if (arr.length > 1) {
+                let count = arr[1];
+                if (thisArea.value.length > count) {
+                    thisArea.value = thisArea.value.substring(0, count);
+                    thisArea.focus();
+                }
+                title_number.textContent = thisArea.value.length + "/" + count;
+            }            
         }
-        function contentTextChange(content, maxLength) {
-            console.log(content.textContent)
-            if (content.textContent.length > maxLength) {
-                content.textContent = content.textContent.substring(0, maxLength)
-                content.focus()
+        function contentTextChange(content) {
+            let content_number = document.getElementById('content_number');
+            let arr = content_number.textContent.split("/");
+            if (arr.length > 1) {
+                let count = arr[1];
+                console.log(count);
+                if (content.textContent.length > count) {
+                    content.textContent = content.textContent.substring(0, count);
+                    content.focus();
+                }
+                
+                content_number.textContent = content.textContent.length + "/" + count;
             }
-            let content_number = document.getElementById('content_number')
-            content_number.textContent = content.textContent.length + "/" + maxLength
+            
         }
     
         var footer = document.getElementById('zss_editor_footer');
         footer.addEventListener('click', coverImage);
         function coverImage(e) {
-            let img = document.getElementById('article_cover')
+            let img = document.getElementById('article_cover');
             window.webkit.messageHandlers.coverImage.postMessage({
                 "body": img.value
             });

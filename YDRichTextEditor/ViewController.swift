@@ -19,8 +19,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.setTitleNumberWithText("0/100")
+//        isHideTitleNumber = true
+//        vj_hideColumn = true
+//        vj_hideHTMLAbstract = true
+        let height = UIScreen.main.bounds.height - 88
+        self.textEditor.updateLayoutFrame(CGRect.init(x: 0, y: 88, width: UIScreen.main.bounds.width, height: height))
         self.addChildVC(textEditor)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -29,7 +35,7 @@ class ViewController: UIViewController {
         self.addChild(viewController)
         self.didMove(toParent: viewController)
         let height = UIScreen.main.bounds.height - 88
-        viewController.view.frame = CGRect.init(x: 0, y: 88, width: UIScreen.main.bounds.width, height: height)
+//        viewController.view.frame = CGRect.init(x: 0, y: 88, width: UIScreen.main.bounds.width, height: height)
         self.view.addSubview(viewController.view)
         
     }

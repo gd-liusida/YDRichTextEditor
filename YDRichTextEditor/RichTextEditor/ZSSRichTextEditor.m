@@ -13,6 +13,7 @@
 #import "WKWebView+VJJSTool.h"
 #import "WKWebView+HackishAccessoryHiding.h"
 #import "NSString+VJUUID.h"
+#import "EditorStyleToolBar.h"
 
 
 #define pDeviceWidth [UIScreen mainScreen].bounds.size.width
@@ -29,7 +30,7 @@
 @import JavaScriptCore;
 
 
-@interface ZSSRichTextEditor ()<KWEditorBarDelegate,KWFontStyleBarDelegate,WKNavigationDelegate,WKUIDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,WKScriptMessageHandler>
+@interface ZSSRichTextEditor ()<KWEditorBarDelegate,KWFontStyleBarDelegate,WKNavigationDelegate,WKUIDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,WKScriptMessageHandler,EditorStyleToolBarDelegate>
 
 /*
  *  BOOL for holding if the resources are loaded or not
@@ -69,8 +70,12 @@
 
 @property (nonatomic,strong) KWEditorBar *toolBarView;
 @property (nonatomic,strong) KWFontStyleBar *fontBar;
+@property (nonatomic, strong) EditorStyleToolBar *toolBar;
 
 @property(nonatomic,copy)NSString *vj_columnText;
+@property(nonatomic,copy)NSString *titleNumberText;
+@property(nonatomic,copy)NSString *contentNumberText;
+@property(assign)CGRect frame;
 
 
 @end
@@ -141,10 +146,16 @@
         case 3:{//字体
             editorBar.fontButton.selected = !editorBar.fontButton.selected;
             if (editorBar.fontButton.selected) {
-                [self.view addSubview:self.fontBar];
+                CGFloat x = CGRectGetMinX(editorBar.fontButton.frame);
+                x = x - 17.5;
+                CGRect frame = CGRectMake(x, self.toolBar.frame.origin.y, KWToolBar_Width, KWToolBar_Height);
+                [self.toolBar updateLayout:frame];
+                [self.view addSubview:self.toolBar];
             }else{
-                [self.fontBar removeFromSuperview];
+                [self.toolBar removeFromSuperview];
             }
+            
+            
         }
             break;
         case 4:{//超连接
@@ -226,6 +237,37 @@
             break;
     }
     
+}
+
+- (void)toolBar:(EditorStyleToolBar *)toolBar didClickBtn:(UIButton *)button {
+    if (self.toolBarView.transform.ty>=0) {
+        [self.editorView showKeyboardContent];
+    }
+    switch (button.tag) {
+        case 0:
+            [self.editorView setBold];
+            break;
+        case 1:
+            [self.editorView setItalic];
+            break;
+        case 2:
+            [self.editorView heading2];
+            break;
+        case 3:
+            [self.editorView setBlockquote];
+            break;
+        case 4:
+            [self.editorView setOrderedList];
+            break;
+        case 5:
+            [self.editorView setUnorderedList];
+            break;
+        case 6:
+            [self.editorView sethr];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - KWFontStyleBarDelegate
@@ -467,16 +509,16 @@
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"插入图片链接" message:nil preferredStyle:UIAlertControllerStyleAlert];
        
-       [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-           textField.placeholder = @"URL (必填)";
-           textField.rightViewMode = UITextFieldViewModeAlways;
-           textField.clearButtonMode = UITextFieldViewModeAlways;
-       }];
-       [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-           textField.placeholder = @"名称";
-           textField.clearButtonMode = UITextFieldViewModeAlways;
-           textField.secureTextEntry = NO;
-       }];
+   [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+       textField.placeholder = @"URL (必填)";
+       textField.rightViewMode = UITextFieldViewModeAlways;
+       textField.clearButtonMode = UITextFieldViewModeAlways;
+   }];
+   [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+       textField.placeholder = @"名称";
+       textField.clearButtonMode = UITextFieldViewModeAlways;
+       textField.secureTextEntry = NO;
+   }];
        
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
     
@@ -588,6 +630,18 @@
     
     if (self.vj_hideColumn) {
         [self.editorView hideColumn];
+    }
+    
+    if (self.titleNumberText) {
+        [self.editorView setTitleNumberWithText:self.titleNumberText];
+    }
+    
+    if (self.contentNumberText) {
+        [self.editorView setTitleNumberWithText:self.contentNumberText];
+    }
+    
+    if (self.isHideTitleNumber) {
+        [self.editorView hideTitleNumber];
     }
 
 
@@ -706,6 +760,21 @@
     [self.editorView setColumnTextWithText:text];
 }
 
+- (void)setTitleNumberWithText:(NSString *)text {
+    self.titleNumberText = text;
+    [self.editorView setTitleNumberWithText:text];
+}
+
+- (void)setContentNumberWithText:(NSString *)text {
+    self.contentNumberText = text;
+    [self.editorView setContentNumberWithText:text];
+}
+
+- (void)updateLayoutFrame:(CGRect)frame {
+    self.frame = frame;
+    self.view.frame = frame;
+}
+
 
 #pragma mark - setter
 
@@ -730,7 +799,8 @@
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
         WKUserContentController *userCon = [[WKUserContentController alloc]init];
         config.userContentController = userCon;
-        _editorView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, pDeviceWidth, self.view.frame.size.height - KWEditorBar_Height - pNavigationHeight) configuration:config];
+        NSLog(@"%f", self.view.frame.size.height);
+        _editorView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, pDeviceWidth, self.frame.size.height - KWEditorBar_Height - pNavigationHeight) configuration:config];
         [userCon addScriptMessageHandler:self name:@"column"];
         [userCon addScriptMessageHandler:self name:@"coverImage"];
         _editorView.navigationDelegate = self;
@@ -747,16 +817,24 @@
 - (KWEditorBar *)toolBarView{
     if (!_toolBarView) {
         _toolBarView = [KWEditorBar editorBar];
-        NSLog(@"%f", self.view.frame.size.height);
-        _toolBarView.frame = CGRectMake(0,self.view.frame.size.height - KWEditorBar_Height - pNavigationHeight, self.view.frame.size.width, KWEditorBar_Height);
+        _toolBarView.frame = CGRectMake(0,self.frame.size.height - KWEditorBar_Height - pNavigationHeight, self.frame.size.width, KWEditorBar_Height);
         _toolBarView.backgroundColor = COLOR(237, 237, 237, 1);
     }
     return _toolBarView;
 }
 
+- (EditorStyleToolBar *)toolBar {
+    if (!_toolBar) {
+        CGFloat x = CGRectGetMidX(self.toolBarView.fontButton.frame) / 2;
+        _toolBar = [EditorStyleToolBar show:CGRectGetMaxY(self.toolBarView.frame) - KWToolBar_Height - KWEditorBar_Height arrowX:x height:KWToolBar_Height];
+        _toolBar.delegate = self;
+    }
+    return _toolBar;
+}
+
 - (KWFontStyleBar *)fontBar{
     if (!_fontBar) {
-        _fontBar = [[KWFontStyleBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.toolBarView.frame) - KWFontBar_Height - KWEditorBar_Height, self.view.frame.size.width, KWFontBar_Height)];
+        _fontBar = [[KWFontStyleBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.toolBarView.frame) - KWFontBar_Height - KWEditorBar_Height, self.frame.size.width, KWFontBar_Height)];
         _fontBar.delegate = self;
         [_fontBar.heading2Item setSelected:YES];
         

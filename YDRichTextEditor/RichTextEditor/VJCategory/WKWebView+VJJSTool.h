@@ -54,11 +54,16 @@ typedef void (^callBack)(NSString *html);
 ///无序
 - (void)setUnorderedList;
 
+- (void)setOrderedList;
+
 ///缩进
 - (void)setIndent;
 
 - (void)setOutdent;
 
+- (void)setBlockquote;
+
+- (void)sethr;
 
 ///准备插入图片
 -(void)prepareInsertImage;
@@ -84,6 +89,12 @@ typedef void (^callBack)(NSString *html);
 
 -(void)hideColumn;
 
+/// 标题长度
+-(void)hideTitleNumber;
+
+/// 内容长度
+-(void)hideContentNumber;
+
 - (void)vj_getHTMLTitle:(callBack)block;
 
 - (void)vj_getHTMLAbstract:(callBack)block;
@@ -91,6 +102,10 @@ typedef void (^callBack)(NSString *html);
 -(void)setColumnTextWithText:(NSString *)text;
 
 - (void)setFooterHeight:(float)footerHeight;
+
+-(void)setTitleNumberWithText:(NSString *)text;
+
+-(void)setContentNumberWithText:(NSString *)text;
 
 @end
 

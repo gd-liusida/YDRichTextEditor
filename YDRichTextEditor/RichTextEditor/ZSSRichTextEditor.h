@@ -67,17 +67,23 @@ typedef void (^callBack)(NSString *html);
 - (void)insertHTML:(NSString *)html;
 
 
-#pragma mark - vj edit
+#pragma mark - edit
 
 @property(nonatomic,assign)BOOL vj_hideHTMLTitle;
 @property(nonatomic,assign)BOOL vj_hideHTMLAbstract;
 @property(nonatomic,assign)BOOL vj_hideColumn;
 @property(nonatomic,assign)BOOL isHideFooter;
 @property(nonatomic,assign)BOOL isHideAddImage;
+@property(nonatomic,assign)BOOL isHideTitleNumber;
+@property(nonatomic,assign)BOOL isHideContentNumber;
 
 - (void)vj_getHTMLTitle:(callBack)block;
 - (void)vj_getHTMLAbstract:(callBack)block;
--(void)setColumnTextWithText:(NSString *)text;
+- (void)setColumnTextWithText:(NSString *)text;
+- (void)setTitleNumberWithText:(NSString *)text;
+
+- (void)setContentNumberWithText:(NSString *)text;
+- (void)updateLayoutFrame:(CGRect)frame;
 
 @end
 

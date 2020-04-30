@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A96AB35245A75850057AD3F /* EditorStyleToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A96AB34245A75850057AD3F /* EditorStyleToolBar.m */; };
 		5AA68A132459082F0049BCBE /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AA689C02459082F0049BCBE /* ZSSRichTextEditor.js */; };
 		5AA68A142459082F0049BCBE /* KWEditorBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA689C52459082F0049BCBE /* KWEditorBar.xib */; };
 		5AA68A152459082F0049BCBE /* KWFontStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA689C62459082F0049BCBE /* KWFontStyleBar.m */; };
@@ -89,6 +90,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A96AB33245A75850057AD3F /* EditorStyleToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorStyleToolBar.h; sourceTree = "<group>"; };
+		5A96AB34245A75850057AD3F /* EditorStyleToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorStyleToolBar.m; sourceTree = "<group>"; };
 		5AA689C02459082F0049BCBE /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		5AA689C12459082F0049BCBE /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
 		5AA689C32459082F0049BCBE /* KWFontStyleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KWFontStyleBar.h; sourceTree = "<group>"; };
@@ -210,11 +213,13 @@
 		5AA689C22459082F0049BCBE /* RichToolBar */ = {
 			isa = PBXGroup;
 			children = (
-				5AA689C32459082F0049BCBE /* KWFontStyleBar.h */,
 				5AA689C42459082F0049BCBE /* KWEditorBar.h */,
-				5AA689C52459082F0049BCBE /* KWEditorBar.xib */,
-				5AA689C62459082F0049BCBE /* KWFontStyleBar.m */,
 				5AA689C72459082F0049BCBE /* KWEditorBar.m */,
+				5AA689C52459082F0049BCBE /* KWEditorBar.xib */,
+				5AA689C32459082F0049BCBE /* KWFontStyleBar.h */,
+				5AA689C62459082F0049BCBE /* KWFontStyleBar.m */,
+				5A96AB33245A75850057AD3F /* EditorStyleToolBar.h */,
+				5A96AB34245A75850057AD3F /* EditorStyleToolBar.m */,
 			);
 			path = RichToolBar;
 			sourceTree = "<group>";
@@ -474,6 +479,7 @@
 			files = (
 				5AB2506A2457DC5B00070EA7 /* ViewController.swift in Sources */,
 				5AB250662457DC5B00070EA7 /* AppDelegate.swift in Sources */,
+				5A96AB35245A75850057AD3F /* EditorStyleToolBar.m in Sources */,
 				5AA68A582459082F0049BCBE /* WKWebView+VJJSTool.m in Sources */,
 				5AA68A552459082F0049BCBE /* ZSSRichTextEditor.m in Sources */,
 				5AA68A152459082F0049BCBE /* KWFontStyleBar.m in Sources */,

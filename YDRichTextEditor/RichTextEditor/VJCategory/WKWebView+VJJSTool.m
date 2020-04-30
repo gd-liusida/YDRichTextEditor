@@ -100,6 +100,11 @@
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 
+- (void)setOrderedList {
+    NSString *trigger = @"zss_editor.setOrderedList();";
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
 #pragma mark - 缩进
 - (void)setIndent {
     NSString *trigger = @"zss_editor.setIndent();";
@@ -108,6 +113,17 @@
 
 - (void)setOutdent {
     NSString *trigger = @"zss_editor.setOutdent();";
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
+- (void)setBlockquote {
+    NSString *trigger = @"zss_editor.setBlockquote();";
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
+#pragma mark -- 分割线
+- (void)sethr {
+    NSString *trigger = @"zss_editor.sethr();";
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 
@@ -191,6 +207,11 @@
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 
+- (void)hideTitleNumber {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.hideTitleNumber();"];
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
 - (void)vj_getHTMLTitle:(callBack)block {
     
     [self evaluateJavaScript:@"zss_editor.vj_getHTMLTitle();" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
@@ -216,6 +237,16 @@
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.setFooterHeight(\"%f\");", footerHeight];
     [self evaluateJavaScript:trigger completionHandler:nil];
     
+}
+
+- (void)setTitleNumberWithText:(NSString *)text {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTitleNumber(\"%@\");",text];
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
+- (void)setContentNumberWithText:(NSString *)text {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setContentNumber(\"%@\");",text];
+    [self evaluateJavaScript:trigger completionHandler:nil];
 }
 
 @end
