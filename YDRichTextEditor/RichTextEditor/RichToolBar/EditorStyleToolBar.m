@@ -177,7 +177,7 @@
          _blockquoteItem.orderTag = @"blockquote";
             [_blockquoteItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _blockquoteItem;
+    return _blockquoteItem; 
 }
 
 - (UIButton *)orderlistItem{
@@ -272,7 +272,7 @@
 
 - (void)drawInContext:(CGContextRef) context {
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetFillColorWithColor(context, [[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor);
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] colorWithAlphaComponent:0.7].CGColor);
     [self drawPath:context];
     CGContextFillPath(context);
 }

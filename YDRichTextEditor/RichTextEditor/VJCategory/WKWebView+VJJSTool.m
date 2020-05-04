@@ -58,6 +58,10 @@
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 #pragma mark - 设置字体
+- (void)heading {
+    NSString *trigger = @"zss_editor.setHeading('h1');";
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
 - (void)heading2 {
     NSString *trigger = @"zss_editor.setHeading('h2');";
     [self evaluateJavaScript:trigger completionHandler:nil];
@@ -118,6 +122,11 @@
 
 - (void)setBlockquote {
     NSString *trigger = @"zss_editor.setBlockquote();";
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
+- (void)setP {
+    NSString *trigger = @"zss_editor.setP();";
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 

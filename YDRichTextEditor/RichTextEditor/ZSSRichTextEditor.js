@@ -190,7 +190,12 @@ zss_editor.backuprange = function(){
     var selection = window.getSelection();
     var range = selection.getRangeAt(0);
     
-    zss_editor.currentSelection = {"startContainer": range.startContainer, "startOffset":range.startOffset,"endContainer":range.endContainer, "endOffset":range.endOffset};
+    zss_editor.currentSelection = {
+        "startContainer": range.startContainer,
+        "startOffset":range.startOffset,
+        "endContainer":range.endContainer,
+        "endOffset":range.endOffset
+    };
 }
 
 zss_editor.testRange = function(){
@@ -266,7 +271,12 @@ zss_editor.setBlockquote = function() {
 }
 
 zss_editor.sethr = function() {
-    document.execCommand('insertHr', false, null);
+    document.execCommand('insertHTML', false, '<hr color=#e2e2e2 size=1 /><br/>');
+    zss_editor.enabledEditingItems();
+}
+
+zss_editor.setP = function() {
+    document.execCommand('formatBlock', false, '<p>');
     zss_editor.enabledEditingItems();
 }
 
@@ -647,6 +657,9 @@ zss_editor.enabledEditingItems = function(e) {
     }
     if (zss_editor.isCommandEnabled('insertHorizontalRule')) {
         items.push('horizontalRule');
+    }
+    if (zss_editor.isCommandEnabled('blockquote')) {
+        items.push('blockquote');
     }
     var formatBlock = document.queryCommandValue('formatBlock');
     if (formatBlock.length > 0) {

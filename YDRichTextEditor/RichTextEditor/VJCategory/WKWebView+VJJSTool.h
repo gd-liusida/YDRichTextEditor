@@ -63,7 +63,11 @@ typedef void (^callBack)(NSString *html);
 
 - (void)setBlockquote;
 
+- (void)setP;
+
 - (void)sethr;
+
+- (void)heading;
 
 ///准备插入图片
 -(void)prepareInsertImage;

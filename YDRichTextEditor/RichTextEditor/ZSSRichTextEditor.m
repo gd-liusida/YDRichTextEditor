@@ -243,6 +243,7 @@
     if (self.toolBarView.transform.ty>=0) {
         [self.editorView showKeyboardContent];
     }
+    button.selected = !button.selected;
     switch (button.tag) {
         case 0:
             [self.editorView setBold];
@@ -251,10 +252,20 @@
             [self.editorView setItalic];
             break;
         case 2:
-            [self.editorView heading2];
+            if (button.selected) {
+                [self.editorView heading];
+            } else {
+                [self.editorView setP];
+            }
+            
             break;
         case 3:
-            [self.editorView setBlockquote];
+            
+            if (button.selected) {
+                [self.editorView setBlockquote];
+            } else {
+                [self.editorView setP];
+            }
             break;
         case 4:
             [self.editorView setOrderedList];
@@ -341,12 +352,15 @@
     if ([urlString hasPrefix:@"state-title://"] || [urlString hasPrefix:@"state-abstract-title://"]) {
         self.fontBar.hidden = YES;
         self.toolBarView.hidden = YES;
+        self.toolBar.hidden = YES;
     }else if([urlString rangeOfString:@"callback://0/"].location != NSNotFound){
         self.fontBar.hidden = NO;
         self.toolBarView.hidden = NO;
+        self.toolBar.hidden = NO;
         //更新 toolbar
         NSString *className = [urlString stringByReplacingOccurrencesOfString:@"callback://0/" withString:@""];
         [self.fontBar updateFontBarWithButtonName:className];
+        [self.toolBar updateFontBarWithButtonName:className];
     }
     
 }
