@@ -18,6 +18,10 @@
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 
+- (void)hideContentNumber {
+    
+}
+
 #pragma mark 前进后退
 //后退
 -(void)undo{

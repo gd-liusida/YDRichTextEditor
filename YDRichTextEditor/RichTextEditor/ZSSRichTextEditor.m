@@ -14,7 +14,7 @@
 #import "WKWebView+HackishAccessoryHiding.h"
 #import "NSString+VJUUID.h"
 #import "EditorStyleToolBar.h"
-
+#import "EditorSettingBar.h"
 
 #define pDeviceWidth [UIScreen mainScreen].bounds.size.width
 #define pDeviceHeight [UIScreen mainScreen].bounds.size.height
@@ -30,7 +30,7 @@
 @import JavaScriptCore;
 
 
-@interface ZSSRichTextEditor ()<KWEditorBarDelegate,KWFontStyleBarDelegate,WKNavigationDelegate,WKUIDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,WKScriptMessageHandler,EditorStyleToolBarDelegate>
+@interface ZSSRichTextEditor ()<KWEditorBarDelegate,KWFontStyleBarDelegate,WKNavigationDelegate,WKUIDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,WKScriptMessageHandler,EditorStyleToolBarDelegate, EditorSettingBarDelegate>
 
 /*
  *  BOOL for holding if the resources are loaded or not
@@ -71,6 +71,7 @@
 @property (nonatomic,strong) KWEditorBar *toolBarView;
 @property (nonatomic,strong) KWFontStyleBar *fontBar;
 @property (nonatomic, strong) EditorStyleToolBar *toolBar;
+@property (nonatomic, strong) EditorSettingBar *settingBar;
 
 @property(nonatomic,copy)NSString *vj_columnText;
 @property(nonatomic,copy)NSString *titleNumberText;
@@ -116,6 +117,7 @@
     
     @try {
         [self.toolBarView removeObserver:self forKeyPath:@"transform"];
+        [self.toolBarView removeObserver:self forKeyPath:@"URL"];
     } @catch (NSException *exception)
     {
         NSLog(@"Exception: %@", exception);
@@ -163,7 +165,17 @@
         }
             break;
         case 5:{//图片
-            [self insertImage];
+//            [self insertImage];
+            editorBar.imageButton.selected = !editorBar.imageButton.selected;
+            if (editorBar.imageButton.selected) {
+                CGFloat x = CGRectGetMinX(editorBar.imageButton.frame);
+                x = x - 10;
+                CGRect frame = CGRectMake(x, self.settingBar.frame.origin.y, SettingBar_Width, SettingBar_Height);
+                NSLog(@"%@", NSStringFromCGRect(frame));
+                [self.view addSubview:self.settingBar];
+            } else {
+                [self.settingBar removeFromSuperview];
+            }
         }
             break;
         default:
@@ -243,7 +255,7 @@
     if (self.toolBarView.transform.ty>=0) {
         [self.editorView showKeyboardContent];
     }
-    button.selected = !button.selected;
+    
     switch (button.tag) {
         case 0:
             [self.editorView setBold];
@@ -252,15 +264,10 @@
             [self.editorView setItalic];
             break;
         case 2:
-            if (button.selected) {
-                [self.editorView heading];
-            } else {
-                [self.editorView setP];
-            }
-            
+            [self.editorView heading];
             break;
         case 3:
-            
+            button.selected = !button.selected;
             if (button.selected) {
                 [self.editorView setBlockquote];
             } else {
@@ -276,6 +283,20 @@
         case 6:
             [self.editorView sethr];
             break;
+        default:
+            break;
+    }
+}
+
+- (void)settingBar:(EditorSettingBar *)settingBar didClickBtn:(UIButton *)button {
+    if (self.toolBarView.transform.ty>=0) {
+        [self.editorView showKeyboardContent];
+    }
+    switch (button.tag) {
+        case 0:
+//            [self.editorView ];
+            break;
+            
         default:
             break;
     }
@@ -328,15 +349,16 @@
     }
 }
 
-
-
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
 
     if([keyPath isEqualToString:@"transform"]){
         
         CGRect fontBarFrame = self.fontBar.frame;
+        CGRect toolBarFrame = self.toolBar.frame;
         fontBarFrame.origin.y = CGRectGetMaxY(self.toolBarView.frame)- KWFontBar_Height - KWEditorBar_Height;
+        toolBarFrame.origin.y = CGRectGetMaxY(self.toolBarView.frame)- KWFontBar_Height - KWEditorBar_Height;
         self.fontBar.frame = fontBarFrame;
+        self.toolBar.frame = toolBarFrame;
     }else if([keyPath isEqualToString:@"URL"]){
         NSString *urlString = self.editorView.URL.absoluteString;
         NSLog(@"URL------%@",urlString);
@@ -854,6 +876,15 @@
         
     }
     return _fontBar;
+}
+
+- (EditorSettingBar *)settingBar{
+    if (!_settingBar) {
+        CGFloat x = CGRectGetMidX(self.toolBarView.fontButton.frame) / 2;
+        _settingBar = [EditorSettingBar show:CGRectGetMaxY(self.toolBarView.frame) - SettingBar_Height - KWEditorBar_Height arrowX:x height:SettingBar_Height];
+        _settingBar.delegate = self;
+    }
+    return _settingBar;
 }
 
 #pragma mark 图片选择器

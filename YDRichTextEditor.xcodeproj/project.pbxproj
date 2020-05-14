@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A86C36C24615CFB007CBD28 /* EditorSettingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A86C36B24615CFB007CBD28 /* EditorSettingBar.m */; };
 		5A96AB35245A75850057AD3F /* EditorStyleToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A96AB34245A75850057AD3F /* EditorStyleToolBar.m */; };
 		5AA68A132459082F0049BCBE /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AA689C02459082F0049BCBE /* ZSSRichTextEditor.js */; };
 		5AA68A142459082F0049BCBE /* KWEditorBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA689C52459082F0049BCBE /* KWEditorBar.xib */; };
@@ -87,9 +88,13 @@
 		5AB2506D2457DC5B00070EA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AB2506B2457DC5B00070EA7 /* Main.storyboard */; };
 		5AB2506F2457DC5C00070EA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AB2506E2457DC5C00070EA7 /* Assets.xcassets */; };
 		5AB250722457DC5C00070EA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AB250702457DC5C00070EA7 /* LaunchScreen.storyboard */; };
+		5AEE11062468D896009BEEA5 /* RichEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEE11052468D896009BEEA5 /* RichEditorView.swift */; };
+		5AEE11092468D97C009BEEA5 /* WKWebView+AccessoryHiding.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEE11082468D97C009BEEA5 /* WKWebView+AccessoryHiding.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A86C36A24615CFB007CBD28 /* EditorSettingBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorSettingBar.h; sourceTree = "<group>"; };
+		5A86C36B24615CFB007CBD28 /* EditorSettingBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorSettingBar.m; sourceTree = "<group>"; };
 		5A96AB33245A75850057AD3F /* EditorStyleToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorStyleToolBar.h; sourceTree = "<group>"; };
 		5A96AB34245A75850057AD3F /* EditorStyleToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorStyleToolBar.m; sourceTree = "<group>"; };
 		5AA689C02459082F0049BCBE /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
@@ -181,6 +186,9 @@
 		5AB250712457DC5C00070EA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5AB250732457DC5C00070EA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AB250FE2457DEFF00070EA7 /* YDRichTextEditor-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YDRichTextEditor-Bridging-Header.h"; sourceTree = "<group>"; };
+		5AEE11052468D896009BEEA5 /* RichEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichEditorView.swift; sourceTree = "<group>"; };
+		5AEE11072468D97C009BEEA5 /* WKWebView+AccessoryHiding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebView+AccessoryHiding.h"; sourceTree = "<group>"; };
+		5AEE11082468D97C009BEEA5 /* WKWebView+AccessoryHiding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+AccessoryHiding.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +228,8 @@
 				5AA689C62459082F0049BCBE /* KWFontStyleBar.m */,
 				5A96AB33245A75850057AD3F /* EditorStyleToolBar.h */,
 				5A96AB34245A75850057AD3F /* EditorStyleToolBar.m */,
+				5A86C36A24615CFB007CBD28 /* EditorSettingBar.h */,
+				5A86C36B24615CFB007CBD28 /* EditorSettingBar.m */,
 			);
 			path = RichToolBar;
 			sourceTree = "<group>";
@@ -330,6 +340,9 @@
 				5AB250652457DC5B00070EA7 /* AppDelegate.swift */,
 				5AB250672457DC5B00070EA7 /* SceneDelegate.swift */,
 				5AB250692457DC5B00070EA7 /* ViewController.swift */,
+				5AEE11052468D896009BEEA5 /* RichEditorView.swift */,
+				5AEE11072468D97C009BEEA5 /* WKWebView+AccessoryHiding.h */,
+				5AEE11082468D97C009BEEA5 /* WKWebView+AccessoryHiding.m */,
 				5AB2506B2457DC5B00070EA7 /* Main.storyboard */,
 				5AB2506E2457DC5C00070EA7 /* Assets.xcassets */,
 				5AB250702457DC5C00070EA7 /* LaunchScreen.storyboard */,
@@ -480,7 +493,10 @@
 				5AB2506A2457DC5B00070EA7 /* ViewController.swift in Sources */,
 				5AB250662457DC5B00070EA7 /* AppDelegate.swift in Sources */,
 				5A96AB35245A75850057AD3F /* EditorStyleToolBar.m in Sources */,
+				5A86C36C24615CFB007CBD28 /* EditorSettingBar.m in Sources */,
 				5AA68A582459082F0049BCBE /* WKWebView+VJJSTool.m in Sources */,
+				5AEE11092468D97C009BEEA5 /* WKWebView+AccessoryHiding.m in Sources */,
+				5AEE11062468D896009BEEA5 /* RichEditorView.swift in Sources */,
 				5AA68A552459082F0049BCBE /* ZSSRichTextEditor.m in Sources */,
 				5AA68A152459082F0049BCBE /* KWFontStyleBar.m in Sources */,
 				5AA68A562459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m in Sources */,

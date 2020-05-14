@@ -15,7 +15,7 @@
 #define KWRightButton_Width 44
 
 //所有按钮宽度
-#define KWItems_Width 46
+#define KWItems_Width 40
 
 @interface EditorStyleToolBar()<UIScrollViewDelegate>
 
@@ -23,7 +23,6 @@
 @property (nonatomic, assign) CGFloat kArrowHeight;
 
 @property (nonatomic,strong) UIScrollView *scroBarView;
-//@property (nonatomic,strong) UIButton *autoScroBtn;
 @property (nonatomic,strong) NSArray *items;
 
 @end
@@ -85,7 +84,6 @@
 - (UIScrollView *)scroBarView{
     if (!_scroBarView) {
         _scroBarView = [[UIScrollView alloc] init];
-//        _scroBarView.backgroundColor = COLOR(237, 237, 237, 1);
         _scroBarView.delegate = self;
         _scroBarView.showsVerticalScrollIndicator = NO;
         _scroBarView.showsHorizontalScrollIndicator = NO;
@@ -93,26 +91,11 @@
     return _scroBarView;
 }
 
-//- (UIButton *)autoScroBtn{
-//    if (!_autoScroBtn) {
-//        _autoScroBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_autoScroBtn setImage:[UIImage imageNamed:@"icon_right"] forState:UIControlStateNormal];
-//        [_autoScroBtn setImage:[UIImage imageNamed:@"icon_left"] forState:UIControlStateSelected];
-//         [_autoScroBtn setAdjustsImageWhenHighlighted:NO];
-//
-//        [_autoScroBtn addTarget:self action:@selector(autoScrollView) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _autoScroBtn;
-//}
-
 - (void)setupViews:(CGRect)frame{
 
     self.scroBarView.frame = CGRectMake(0,0, frame.size.width, 40);
     
-//    self.autoScroBtn.frame = CGRectMake(frame.size.width - KWRightButton_Width, 0, KWRightButton_Width, 40);
-    
     [self addSubview:self.scroBarView];
-//    [self addSubview:self.autoScroBtn];
     
     self.items = @[
                    self.boldItem,
@@ -125,22 +108,22 @@
                 ];
     
     NSInteger itemsCount = self.items.count;
-//    CGFloat itemW = (self.scroBarView.frame.size.width - KViewHeight) / itemsCount;
+    CGFloat itemWidth = KWToolBar_Width / itemsCount;
     for (int i = 0; i < itemsCount; i++) {
         UIButton *button = self.items[i];
-        button.frame = CGRectMake(i*KWItems_Width,0, KWItems_Width,frame.size.height - 10);
+        button.frame = CGRectMake(i*itemWidth,0, itemWidth,frame.size.height - 10);
         button.tag = i;
         [self.scroBarView addSubview:button];
 
     }
-    self.scroBarView.contentSize = CGSizeMake(itemsCount*KWItems_Width, 0);
+    self.scroBarView.contentSize = CGSizeMake(itemsCount*itemWidth, 0);
 }
 
 - (UIButton *)boldItem{
     if (!_boldItem) {
         _boldItem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_boldItem setImage:[UIImage imageNamed:@"B"] forState:UIControlStateNormal];
-        [_boldItem setImage:[UIImage imageNamed:@"BHOVER"] forState:UIControlStateSelected];
+        [_boldItem setImage:[UIImage imageNamed:@"bold_normal_icon"] forState:UIControlStateNormal];
+        [_boldItem setImage:[UIImage imageNamed:@"bold_select_icon"] forState:UIControlStateSelected];
         _boldItem.orderTag = @"bold";
         [_boldItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -150,8 +133,8 @@
 - (UIButton *)italicItem{
     if (!_italicItem) {
         _italicItem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_italicItem setImage:[UIImage imageNamed:@"I"] forState:UIControlStateNormal];
-        [_italicItem setImage:[UIImage imageNamed:@"IHOVER"] forState:UIControlStateSelected];
+        [_italicItem setImage:[UIImage imageNamed:@"italic_normal_icon"] forState:UIControlStateNormal];
+        [_italicItem setImage:[UIImage imageNamed:@"italic_select_icon"] forState:UIControlStateSelected];
         _italicItem.orderTag = @"italic";
         [_italicItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -161,8 +144,8 @@
 - (UIButton *)headingItem{
     if (!_headingItem) {//18
         _headingItem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_headingItem setImage:[UIImage imageNamed:@"Aal"] forState:UIControlStateNormal];
-        [_headingItem setImage:[UIImage imageNamed:@"Aalhover"] forState:UIControlStateSelected];
+        [_headingItem setImage:[UIImage imageNamed:@"header_normal_icon"] forState:UIControlStateNormal];
+        [_headingItem setImage:[UIImage imageNamed:@"header_select_icon"] forState:UIControlStateSelected];
         _headingItem.orderTag = @"4";
         [_headingItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -172,10 +155,10 @@
 - (UIButton *)blockquoteItem{
     if (!_blockquoteItem) {
         _blockquoteItem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_blockquoteItem setImage:[UIImage imageNamed:@"suojin"] forState:UIControlStateNormal];
-        [_blockquoteItem setImage:[UIImage imageNamed:@"tool_tab"] forState:UIControlStateSelected];
-         _blockquoteItem.orderTag = @"blockquote";
-            [_blockquoteItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_blockquoteItem setImage:[UIImage imageNamed:@"blockquote_normal_icon"] forState:UIControlStateNormal];
+        [_blockquoteItem setImage:[UIImage imageNamed:@"blockquote_select_icon"] forState:UIControlStateSelected];
+        _blockquoteItem.orderTag = @"blockquote";
+        [_blockquoteItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _blockquoteItem; 
 }
@@ -183,10 +166,10 @@
 - (UIButton *)orderlistItem{
     if (!_orderlistItem) {
         _orderlistItem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_orderlistItem setImage:[UIImage imageNamed:@"suojin"] forState:UIControlStateNormal];
-        [_orderlistItem setImage:[UIImage imageNamed:@"tool_tab"] forState:UIControlStateSelected];
-         _orderlistItem.orderTag = @"orderlist";
-            [_orderlistItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_orderlistItem setImage:[UIImage imageNamed:@"ordered_normal_icon"] forState:UIControlStateNormal];
+        [_orderlistItem setImage:[UIImage imageNamed:@"ordered_select_icon"] forState:UIControlStateSelected];
+        _orderlistItem.orderTag = @"orderlist";
+        [_orderlistItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _orderlistItem;
 }
@@ -194,8 +177,8 @@
 - (UIButton *)unorderlistItem{
     if (!_unorderlistItem) {
         _unorderlistItem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_unorderlistItem setImage:[UIImage imageNamed:@"wuxuliebiao"] forState:UIControlStateNormal];
-             [_unorderlistItem setImage:[UIImage imageNamed:@"wuxuliebiaohover"] forState:UIControlStateSelected];
+        [_unorderlistItem setImage:[UIImage imageNamed:@"unordered_normal_icon"] forState:UIControlStateNormal];
+             [_unorderlistItem setImage:[UIImage imageNamed:@"unordered_select_icon"] forState:UIControlStateSelected];
         _unorderlistItem.orderTag = @"unorderedList";
             [_unorderlistItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -205,8 +188,8 @@
 - (UIButton *)hrItem{
     if (!_hrItem) {
         _hrItem = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_hrItem setImage:[UIImage imageNamed:@"suojin"] forState:UIControlStateNormal];
-        [_hrItem setImage:[UIImage imageNamed:@"tool_tab"] forState:UIControlStateSelected];
+        [_hrItem setImage:[UIImage imageNamed:@"inserthr_icon"] forState:UIControlStateNormal];
+        [_hrItem setImage:[UIImage imageNamed:@"inserthr_icon"] forState:UIControlStateSelected];
         _hrItem.orderTag = @"hr";
         [_hrItem addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -220,22 +203,6 @@
         [self.delegate toolBar:self didClickBtn:button];
     }
 }
-
-//- (void)autoScrollView{
-//    self.autoScroBtn.selected = !self.autoScroBtn.selected;
-//    if (self.autoScroBtn.selected) {
-//        [self.scroBarView setContentOffset:CGPointMake(self.scroBarView.contentSize.width - self.scroBarView.frame.size.width, 0) animated:YES];
-//    }else{
-//        [self.scroBarView setContentOffset:CGPointZero animated:NO];
-//    }
-//}
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    if (self.scroBarView.contentOffset.x + scrollView.frame.size.width  >= scrollView.contentSize.width) {
-//        self.autoScroBtn.selected = YES;
-//    }else{
-//        self.autoScroBtn.selected = NO;
-//    }
-//}
 
 - (void)updateFontBarWithButtonName:(NSString *)name{
     
@@ -272,7 +239,7 @@
 
 - (void)drawInContext:(CGContextRef) context {
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] colorWithAlphaComponent:0.7].CGColor);
+    CGContextSetFillColorWithColor(context, [[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor);
     [self drawPath:context];
     CGContextFillPath(context);
 }
