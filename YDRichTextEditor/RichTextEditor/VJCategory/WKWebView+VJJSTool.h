@@ -93,6 +93,8 @@ typedef void (^callBack)(NSString *html);
 
 -(void)hideColumn;
 
+- (void)hideFooter;
+
 /// 标题长度
 -(void)hideTitleNumber;
 

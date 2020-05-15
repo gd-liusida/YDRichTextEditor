@@ -12,7 +12,6 @@
 #import "KWFontStyleBar.h"
 #import "WKWebView+VJJSTool.h"
 #import "WKWebView+HackishAccessoryHiding.h"
-#import "NSString+VJUUID.h"
 #import "EditorStyleToolBar.h"
 #import "EditorSettingBar.h"
 
@@ -36,11 +35,6 @@
  *  BOOL for holding if the resources are loaded or not
  */
 @property (nonatomic) BOOL resourcesLoaded;
-
-/*
- *  Alert View used when inserting links/images
- */
-@property (nonatomic, strong) UIAlertView *alertView;
 
 /*
  *  NSString holding the html
@@ -69,7 +63,6 @@
 - (void)tidyHTML:(NSString *)html complete:(callBack)block;
 
 @property (nonatomic,strong) KWEditorBar *toolBarView;
-@property (nonatomic,strong) KWFontStyleBar *fontBar;
 @property (nonatomic, strong) EditorStyleToolBar *toolBar;
 @property (nonatomic, strong) EditorSettingBar *settingBar;
 
@@ -165,13 +158,11 @@
         }
             break;
         case 5:{//图片
-//            [self insertImage];
             editorBar.imageButton.selected = !editorBar.imageButton.selected;
             if (editorBar.imageButton.selected) {
                 CGFloat x = CGRectGetMinX(editorBar.imageButton.frame);
                 x = x - 10;
                 CGRect frame = CGRectMake(x, self.settingBar.frame.origin.y, SettingBar_Width, SettingBar_Height);
-                NSLog(@"%@", NSStringFromCGRect(frame));
                 [self.view addSubview:self.settingBar];
             } else {
                 [self.settingBar removeFromSuperview];
@@ -352,16 +343,11 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
 
     if([keyPath isEqualToString:@"transform"]){
-        
-        CGRect fontBarFrame = self.fontBar.frame;
         CGRect toolBarFrame = self.toolBar.frame;
-        fontBarFrame.origin.y = CGRectGetMaxY(self.toolBarView.frame)- KWFontBar_Height - KWEditorBar_Height;
         toolBarFrame.origin.y = CGRectGetMaxY(self.toolBarView.frame)- KWFontBar_Height - KWEditorBar_Height;
-        self.fontBar.frame = fontBarFrame;
         self.toolBar.frame = toolBarFrame;
     }else if([keyPath isEqualToString:@"URL"]){
         NSString *urlString = self.editorView.URL.absoluteString;
-        NSLog(@"URL------%@",urlString);
         [self handleEvent:urlString];
     }else{
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -372,16 +358,13 @@
 - (void)handleEvent:(NSString *)urlString{
     
     if ([urlString hasPrefix:@"state-title://"] || [urlString hasPrefix:@"state-abstract-title://"]) {
-        self.fontBar.hidden = YES;
         self.toolBarView.hidden = YES;
         self.toolBar.hidden = YES;
     }else if([urlString rangeOfString:@"callback://0/"].location != NSNotFound){
-        self.fontBar.hidden = NO;
         self.toolBarView.hidden = NO;
         self.toolBar.hidden = NO;
         //更新 toolbar
         NSString *className = [urlString stringByReplacingOccurrencesOfString:@"callback://0/" withString:@""];
-        [self.fontBar updateFontBarWithButtonName:className];
         [self.toolBar updateFontBarWithButtonName:className];
     }
     
@@ -668,6 +651,10 @@
         [self.editorView hideColumn];
     }
     
+    if (self.isHideFooter) {
+        [self.editorView hideFooter];
+    }
+    
     if (self.titleNumberText) {
         [self.editorView setTitleNumberWithText:self.titleNumberText];
     }
@@ -678,6 +665,10 @@
     
     if (self.isHideTitleNumber) {
         [self.editorView hideTitleNumber];
+    }
+    
+    if (self.isHideContentNumber) {
+        [self.editorView hideContentNumber];
     }
 
 
@@ -866,16 +857,6 @@
         _toolBar.delegate = self;
     }
     return _toolBar;
-}
-
-- (KWFontStyleBar *)fontBar{
-    if (!_fontBar) {
-        _fontBar = [[KWFontStyleBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.toolBarView.frame) - KWFontBar_Height - KWEditorBar_Height, self.frame.size.width, KWFontBar_Height)];
-        _fontBar.delegate = self;
-        [_fontBar.heading2Item setSelected:YES];
-        
-    }
-    return _fontBar;
 }
 
 - (EditorSettingBar *)settingBar{

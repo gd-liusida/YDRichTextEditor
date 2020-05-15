@@ -18,10 +18,6 @@
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 
-- (void)hideContentNumber {
-    
-}
-
 #pragma mark 前进后退
 //后退
 -(void)undo{
@@ -222,6 +218,16 @@
 
 - (void)hideTitleNumber {
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.hideTitleNumber();"];
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
+- (void)hideContentNumber {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.hideContentNumber();"];
+    [self evaluateJavaScript:trigger completionHandler:nil];
+}
+
+- (void)hideFooter {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.hidefooter();"];
     [self evaluateJavaScript:trigger completionHandler:nil];
 }
 

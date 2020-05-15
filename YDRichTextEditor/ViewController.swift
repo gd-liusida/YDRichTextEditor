@@ -14,6 +14,9 @@ class ViewController: UIViewController {
         let textEditor: ZSSRichTextEditor = ZSSRichTextEditor.init()
         textEditor.vj_hideColumn = true
         textEditor.vj_hideHTMLAbstract = true
+        textEditor.isHideFooter = true
+        textEditor.isHideContentNumber = true
+        textEditor.isHideTitleNumber = true
         return textEditor
     }()
     

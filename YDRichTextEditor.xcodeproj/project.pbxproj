@@ -77,7 +77,6 @@
 		5AA68A542459082F0049BCBE /* ziti@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA68A062459082F0049BCBE /* ziti@2x.png */; };
 		5AA68A552459082F0049BCBE /* ZSSRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA68A072459082F0049BCBE /* ZSSRichTextEditor.m */; };
 		5AA68A562459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA68A0B2459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m */; };
-		5AA68A572459082F0049BCBE /* NSString+VJUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA68A0C2459082F0049BCBE /* NSString+VJUUID.m */; };
 		5AA68A582459082F0049BCBE /* WKWebView+VJJSTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA68A0D2459082F0049BCBE /* WKWebView+VJJSTool.m */; };
 		5AA68A592459082F0049BCBE /* UIControl+KWButtonExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA68A0E2459082F0049BCBE /* UIControl+KWButtonExtension.m */; };
 		5AA68A5A2459082F0049BCBE /* JSBeautifier.js in Resources */ = {isa = PBXBuildFile; fileRef = 5AA68A112459082F0049BCBE /* JSBeautifier.js */; };
@@ -170,11 +169,9 @@
 		5AA68A092459082F0049BCBE /* WKWebView+VJJSTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+VJJSTool.h"; sourceTree = "<group>"; };
 		5AA68A0A2459082F0049BCBE /* UIControl+KWButtonExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+KWButtonExtension.h"; sourceTree = "<group>"; };
 		5AA68A0B2459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+HackishAccessoryHiding.m"; sourceTree = "<group>"; };
-		5AA68A0C2459082F0049BCBE /* NSString+VJUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+VJUUID.m"; sourceTree = "<group>"; };
 		5AA68A0D2459082F0049BCBE /* WKWebView+VJJSTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+VJJSTool.m"; sourceTree = "<group>"; };
 		5AA68A0E2459082F0049BCBE /* UIControl+KWButtonExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+KWButtonExtension.m"; sourceTree = "<group>"; };
 		5AA68A0F2459082F0049BCBE /* WKWebView+HackishAccessoryHiding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+HackishAccessoryHiding.h"; sourceTree = "<group>"; };
-		5AA68A102459082F0049BCBE /* NSString+VJUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+VJUUID.h"; sourceTree = "<group>"; };
 		5AA68A112459082F0049BCBE /* JSBeautifier.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JSBeautifier.js; sourceTree = "<group>"; };
 		5AA68A122459082F0049BCBE /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
 		5AB250622457DC5B00070EA7 /* YDRichTextEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YDRichTextEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,8 +308,6 @@
 				5AA68A0B2459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m */,
 				5AA68A092459082F0049BCBE /* WKWebView+VJJSTool.h */,
 				5AA68A0D2459082F0049BCBE /* WKWebView+VJJSTool.m */,
-				5AA68A102459082F0049BCBE /* NSString+VJUUID.h */,
-				5AA68A0C2459082F0049BCBE /* NSString+VJUUID.m */,
 			);
 			path = VJCategory;
 			sourceTree = "<group>";
@@ -502,7 +497,6 @@
 				5AA68A562459082F0049BCBE /* WKWebView+HackishAccessoryHiding.m in Sources */,
 				5AA68A162459082F0049BCBE /* KWEditorBar.m in Sources */,
 				5AA68A592459082F0049BCBE /* UIControl+KWButtonExtension.m in Sources */,
-				5AA68A572459082F0049BCBE /* NSString+VJUUID.m in Sources */,
 				5AB250682457DC5B00070EA7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
